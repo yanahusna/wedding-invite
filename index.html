@@ -45,7 +45,6 @@
       position: relative;
     }
 
-    /* Simple floral corners using gradient circles (you can later replace with real floral PNGs) */
     section::before,
     section::after {
       content: "";
@@ -524,10 +523,8 @@
     <div class="hero-inner">
       <div class="hero-subtitle">UNDANGAN MAJLIS WALIMATUL URUS</div>
 
-      <!-- EDIT NAMES -->
       <h1 class="hero-names">Haziq <span class="hero-amp">&amp;</span> Aina</h1>
 
-      <!-- EDIT DATE -->
       <div class="hero-date">29 NOVEMBER 2025 · SABTU</div>
 
       <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
@@ -611,7 +608,6 @@
       </p>
 
       <div class="map-btns">
-        <!-- EDIT LINKS -->
         <a class="btn-solid" href="https://maps.app.goo.gl/" target="_blank" rel="noopener">
           Buka Google Maps
         </a>
@@ -684,9 +680,7 @@
         <button type="submit">Hantar Ucapan</button>
       </form>
 
-      <div class="wishes-list" id="wishesList">
-        <!-- Optional: You can display recent wishes here manually or later fetch from Sheet -->
-      </div>
+      <div class="wishes-list" id="wishesList"></div>
     </div>
   </section>
 
@@ -730,11 +724,10 @@
   </div>
 
   <script>
-    // ====== CONFIG: PASTE YOUR APPS SCRIPT URL HERE ======
+    // ====== CONFIG: SCRIPT URL ======
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwRep80DpJmbi2jmwyu1RgEeenR2B-6mReb5tgPn36wRh5r2bo-1XDQrF4Jf3saUgTOLA/exec";
 
-    // ====== COUNTDOWN ======test
-    // (Year, Month-1, Day, Hour, Minute)
+    // ====== COUNTDOWN ======
     const targetDate = new Date(2025, 10, 29, 11, 0, 0);
 
     function updateCountdown() {
@@ -802,7 +795,7 @@
       setTimeout(() => toast.classList.remove("show"), 2500);
     }
 
-    // ====== SUBMIT WISHES TO GOOGLE SHEET ======
+    // ====== SUBMIT WISHES ======
     const wishForm = document.getElementById("wishForm");
     const wishesList = document.getElementById("wishesList");
 
@@ -813,9 +806,9 @@
       if (!name || !message) return;
 
       try {
-        const res = await fetch(SCRIPT_URL, {
+        await fetch(SCRIPT_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          mode: "no-cors",
           body: JSON.stringify({
             mode: "wish",
             name,
@@ -823,10 +816,8 @@
           })
         });
 
-        // Optional: you can check result if CORS allows
         showToast("Terima kasih atas ucapan anda! 💙");
 
-        // Add to UI (local only, others will appear in Sheet)
         const item = document.createElement("div");
         item.className = "wish-item";
         const now = new Date().toLocaleString("ms-MY");
@@ -844,7 +835,7 @@
       }
     });
 
-    // ====== SUBMIT RSVP TO GOOGLE SHEET ======
+    // ====== SUBMIT RSVP ======
     const rsvpForm = document.getElementById("rsvpForm");
 
     rsvpForm.addEventListener("submit", async (e) => {
@@ -857,9 +848,9 @@
       if (!name || !status) return;
 
       try {
-        const res = await fetch(SCRIPT_URL, {
+        await fetch(SCRIPT_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          mode: "no-cors",
           body: JSON.stringify({
             mode: "rsvp",
             name,
