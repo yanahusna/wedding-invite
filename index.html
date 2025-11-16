@@ -236,27 +236,35 @@
       setTimeout(()=>t.classList.remove("show"),2000);
     }
 
-    // LOAD WISHES (GET)
-    async function loadWishes(){
-      try {
-        const res = await fetch(SCRIPT_URL+"?mode=wish");
-        const data = await res.json();
+async function loadWishes() {
+  try {
+    const res = await fetch(SCRIPT_URL);
+    const data = await res.json();
 
-        const list = document.getElementById("wishesList");
-        list.innerHTML = "";
+    // Clear list
+    wishesList.innerHTML = "";
 
-        data.forEach(w => {
-          const div = document.createElement("div");
-          div.className = "wish-item";
-          div.innerHTML = `<strong>${w.name}</strong>${w.message}<br><small>${w.time}</small>`;
-          list.appendChild(div);
-        });
+    data.wishes.reverse().forEach(w => {
+      const div = document.createElement("div");
+      div.className = "wish-item";
 
-      } catch(err){
-        console.log(err);
-      }
-    }
-    loadWishes();
+      div.innerHTML = `
+        <strong>${w.name}</strong>
+        <span class="wish-msg">${w.message}</span>
+        <span class="wish-time">${new Date(w.timestamp).toLocaleString("ms-MY")}</span>
+      `;
+
+      wishesList.appendChild(div);
+    });
+
+  } catch (err) {
+    console.error("Load error:", err);
+  }
+}
+
+// Load wishes automatically when page opens
+loadWishes();
+
 
     // SUBMIT WISH
     document.getElementById("wishForm").addEventListener("submit", async(e)=>{
@@ -292,6 +300,8 @@
       showToast("RSVP dihantar 💙");
       rsvpForm.reset();
     });
+
+    
   </script>
 </body>
 </html>
