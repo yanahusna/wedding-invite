@@ -5,6 +5,13 @@
   <title>Walimatul Urus – Haziq & Aina</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Playfair+Display:wght@500;600&display=swap"
+    rel="stylesheet">
+
   <style>
     :root {
       --bg-main: #f4f6fb;
@@ -93,7 +100,6 @@
       );
     }
 
-    /* Floral corner accents */
     .floral-corner {
       position: absolute;
       width: 120px;
@@ -399,7 +405,100 @@
       color: #8b93a4;
     }
 
-    /* RSVP / FORMS */
+    /* GUESTBOOK SPECIAL CARD */
+    .guestbook-card {
+      background: linear-gradient(180deg, #f7f4ef, #f1eae2);
+      border: 1px solid #dcccbc;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .guestbook-card::before,
+    .guestbook-card::after {
+      background: none;
+    }
+
+    .guestbook-card .card-inner::before,
+    .guestbook-card .card-inner::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 180px;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .guestbook-card .card-inner::before {
+      top: -40px;
+      background:
+        radial-gradient(circle at 10% 100%, rgba(188,173,155,0.3), transparent 65%),
+        radial-gradient(circle at 90% 90%, rgba(160,150,135,0.25), transparent 65%);
+    }
+
+    .guestbook-card .card-inner::after {
+      bottom: -40px;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(203,189,168,0.35), transparent 65%),
+        radial-gradient(circle at 85% 0%, rgba(210,195,175,0.25), transparent 65%);
+    }
+
+    .guestbook-strip {
+      margin-top: 1.8rem;
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      padding: 20px 0;
+    }
+
+    .marquee {
+      display: flex;
+      white-space: nowrap;
+      animation: scrollLeft 40s linear infinite;
+    }
+
+    .marquee-content {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .wish-item {
+      min-width: 300px;
+      max-width: 330px;
+      background: #ffffff;
+      padding: 18px 22px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      border: 1px solid rgba(205, 188, 170, 0.7);
+      font-family: "Dancing Script", cursive;
+      font-size: 24px;
+      color: #2e3842;
+    }
+
+    .wish-item small {
+      margin-top: 10px;
+      display: block;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #59626d;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @media(max-width: 480px){
+      .wish-item {
+        min-width: 240px;
+        font-size: 20px;
+      }
+    }
+
+    /* FORMS */
     form {
       display: grid;
       gap: 0.7rem;
@@ -456,43 +555,6 @@
       box-shadow: 0 14px 28px rgba(83, 97, 127, 0.6);
     }
 
-    /* WISHES LIST (like Invitez style) */
-    .wishes-list {
-      margin-top: 1rem;
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 0.4rem;
-    }
-
-    .wish-item {
-      padding: 0.7rem 0.85rem;
-      background: rgba(244, 246, 251, 0.95);
-      border-radius: 16px;
-      margin-bottom: 0.6rem;
-      border: 1px solid rgba(203, 214, 234, 0.9);
-      font-size: 0.9rem;
-    }
-
-    .wish-item strong {
-      display: block;
-      margin-bottom: 0.15rem;
-      color: #3c465f;
-    }
-
-    .wish-msg {
-      display: block;
-      color: #636a7a;
-    }
-
-    .wish-time {
-      display: block;
-      font-size: 0.75rem;
-      color: #888fa2;
-      margin-top: 0.25rem;
-      text-align: right;
-    }
-
-    /* CONTACT LIST */
     .contact-list {
       display: grid;
       gap: 1rem;
@@ -553,7 +615,6 @@
       padding: 2rem 1.2rem 3.4rem;
     }
 
-    /* TOAST */
     .toast {
       position: fixed;
       top: 16px;
@@ -577,7 +638,6 @@
       transform: translateX(-50%) translateY(3px);
     }
 
-    /* BOTTOM NAV */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -621,7 +681,6 @@
       }
     }
 
-    /* MUSIC BUTTON */
     .music-btn {
       position: fixed;
       bottom: 70px;
@@ -645,13 +704,12 @@
   </style>
 </head>
 <body>
-  <!-- Audio (Can't Help Falling In Love - instrumental) -->
-  <audio id="bgMusic" loop>
-    <source src="weddingsong.mp3" type="audio/mpeg" />
+  <!-- AUDIO: weddingsong.mp3 must be in same folder -->
+  <audio id="bgMusic" loop playsinline>
+    <source src="weddingsong.mp3" type="audio/mpeg">
   </audio>
   <button id="musicBtn" class="music-btn">🔇 Music Off</button>
 
-  <!-- TOAST -->
   <div id="toast" class="toast"></div>
 
   <!-- HERO -->
@@ -742,7 +800,7 @@
       </div>
     </div>
 
-    <!-- OPTIONAL MAP CARD (you can edit href later) -->
+    <!-- MAP placeholder (you can later put real link) -->
     <div class="card">
       <div class="card-inner">
         <div class="section-title">
@@ -777,26 +835,33 @@
     </div>
   </section>
 
-  <!-- WISHES -->
+  <!-- WISH / GUEST BOOK (auto-scroll strip) -->
   <section id="wish">
-    <div class="card">
+    <div class="card guestbook-card">
       <div class="card-inner">
+
         <div class="section-title">
           <small>Guest Book</small>
           <h2>Titipan Ucapan</h2>
         </div>
-        <p style="text-align: center; font-size: 0.95rem;">
-          Tinggalkan ucapan dan doa restu anda buat pasangan pengantin. Ucapan anda akan
-          terpahat sebagai kenangan indah buat kami. 💙
+
+        <p style="font-size:0.95rem; text-align:center;">
+          Barisan ucapan &amp; doa restu daripada tetamu istimewa kami. 💌
         </p>
 
         <form id="wishForm">
-          <input type="text" id="wishName" placeholder="Nama" required />
+          <input type="text" id="wishName" placeholder="Nama" required>
           <textarea id="wishMessage" placeholder="Ucapan" required></textarea>
           <button type="submit">Hantar Ucapan</button>
         </form>
 
-        <div class="wishes-list" id="wishesList"></div>
+        <div class="guestbook-strip">
+          <div class="marquee" id="marquee">
+            <div class="marquee-content" id="wishesList"></div>
+            <div class="marquee-content" id="wishesClone"></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -809,7 +874,7 @@
           <small>RSVP</small>
           <h2>Maklum Kehadiran</h2>
         </div>
-        <p style="font-size: 0.95rem; text-align: center;">
+        <p style="font-size:0.95rem; text-align:center;">
           Mohon jasa baik anda untuk memaklumkan kehadiran bagi memudahkan
           urusan penyediaan jamuan.
         </p>
@@ -832,7 +897,7 @@
           <input
             type="text"
             id="rsvpRemark"
-            placeholder="Catatan (contoh: makanan, lain-lain)"
+            placeholder="Catatan (contoh: alergi makanan, lain-lain)"
           />
           <button type="submit">Hantar RSVP</button>
         </form>
@@ -892,7 +957,7 @@
     kehadiran &amp; doa restu anda. 💙
   </div>
 
-  <!-- BOTTOM NAV -->
+  <!-- NAV BAWAH -->
   <div class="bottom-nav">
     <button data-target="#home" class="active">Home</button>
     <button data-target="#details">Details</button>
@@ -902,13 +967,11 @@
   </div>
 
   <script>
-    // ====== CONFIG: SCRIPT URL (Google Apps Script) ======
     const SCRIPT_URL =
       "https://script.google.com/macros/s/AKfycbwRep80DpJmbi2jmwyu1RgEeenR2B-6mReb5tgPn36wRh5r2bo-1XDQrF4Jf3saUgTOLA/exec";
 
-    // ====== COUNTDOWN ======
+    // COUNTDOWN
     const targetDate = new Date(2025, 10, 29, 11, 0, 0);
-
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
@@ -936,13 +999,11 @@
       cdMins.textContent = mins;
       cdSecs.textContent = secs;
     }
-
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // ====== NAV ACTIVE ======
+    // NAV
     const navButtons = document.querySelectorAll(".bottom-nav button");
-
     navButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const target = document.querySelector(btn.dataset.target);
@@ -968,7 +1029,7 @@
       });
     });
 
-    // ====== TOAST ======
+    // TOAST
     function showToast(msg) {
       const toast = document.getElementById("toast");
       toast.textContent = msg;
@@ -976,16 +1037,15 @@
       setTimeout(() => toast.classList.remove("show"), 2500);
     }
 
-    // ====== MUSIC ======
+    // MUSIC
     const bgMusic = document.getElementById("bgMusic");
     const musicBtn = document.getElementById("musicBtn");
-    bgMusic.volume = 0.7;
-    bgMusic.muted = true;
-    bgMusic
-      .play()
-      .catch(() => {
-        // ignore autoplay errors
-      });
+    bgMusic.volume = 0.6;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      bgMusic.muted = true;
+      bgMusic.play().catch(() => {});
+    });
 
     musicBtn.addEventListener("click", () => {
       if (bgMusic.muted) {
@@ -1000,9 +1060,10 @@
       }
     });
 
-    // ====== SUBMIT WISHES ======
+    // WISHES (Guest Book)
     const wishForm = document.getElementById("wishForm");
     const wishesList = document.getElementById("wishesList");
+    const wishesClone = document.getElementById("wishesClone");
 
     wishForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -1017,21 +1078,22 @@
           body: JSON.stringify({
             mode: "wish",
             name,
-            message,
-          }),
+            message
+          })
         });
 
         showToast("Terima kasih atas ucapan anda! 💙");
 
         const item = document.createElement("div");
         item.className = "wish-item";
-        const now = new Date().toLocaleString("ms-MY");
         item.innerHTML = `
-          <strong>${name}</strong>
-          <span class="wish-msg">${message}</span>
-          <span class="wish-time">${now}</span>
+          <span>${message}</span>
+          <small>${name}</small>
         `;
-        wishesList.prepend(item);
+
+        wishesList.appendChild(item);
+        const cloneItem = item.cloneNode(true);
+        wishesClone.appendChild(cloneItem);
 
         wishForm.reset();
       } catch (err) {
@@ -1040,9 +1102,8 @@
       }
     });
 
-    // ====== SUBMIT RSVP ======
+    // RSVP
     const rsvpForm = document.getElementById("rsvpForm");
-
     rsvpForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = document.getElementById("rsvpName").value.trim();
@@ -1061,8 +1122,8 @@
             name,
             pax,
             status,
-            remark,
-          }),
+            remark
+          })
         });
 
         showToast("Terima kasih, RSVP anda telah diterima 💙");
