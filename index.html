@@ -5,13 +5,6 @@
   <title>Walimatul Urus – Haziq & Aina</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- FONTS -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600&family=Playfair+Display:wght@500;600&display=swap"
-    rel="stylesheet">
-
   <style>
     :root {
       --bg-main: #f4f6fb;
@@ -100,6 +93,7 @@
       );
     }
 
+    /* Floral corner accents */
     .floral-corner {
       position: absolute;
       width: 120px;
@@ -405,140 +399,7 @@
       color: #8b93a4;
     }
 
-    /* GUESTBOOK SPECIAL CARD – Premium Blue-Grey Watercolour */
-    .guestbook-card {
-      background: radial-gradient(circle at top left, #edf1fb, #f7f3ee);
-      border: 1px solid #d7c3a5;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .guestbook-card::before,
-    .guestbook-card::after {
-      background: none;
-    }
-
-    .guestbook-card .card-inner::before,
-    .guestbook-card .card-inner::after {
-      content: "";
-      position: absolute;
-      width: 130%;
-      height: 180px;
-      left: -15%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .guestbook-card .card-inner::before {
-      top: -60px;
-      background:
-        radial-gradient(circle at 15% 80%, rgba(155,175,205,0.45), transparent 70%),
-        radial-gradient(circle at 85% 90%, rgba(190,205,225,0.4), transparent 70%);
-      opacity: 0.85;
-    }
-
-    .guestbook-card .card-inner::after {
-      bottom: -70px;
-      background:
-        radial-gradient(circle at 10% 10%, rgba(222,210,192,0.5), transparent 70%),
-        radial-gradient(circle at 90% 15%, rgba(205,190,170,0.45), transparent 70%);
-      opacity: 0.95;
-    }
-
-    .guestbook-strip {
-      margin-top: 1.8rem;
-      overflow: hidden;
-      width: 100%;
-      position: relative;
-      padding: 20px 0;
-    }
-
-    .marquee {
-      display: flex;
-      white-space: nowrap;
-      animation: scrollLeft 40s linear infinite;
-    }
-
-    .marquee-content {
-      display: flex;
-      gap: 2.5rem;
-    }
-
-    /* EACH WISH CARD – premium floral feel */
-    .wish-item {
-      min-width: 320px;
-      max-width: 360px;
-      background: linear-gradient(
-        145deg,
-        rgba(255,255,255,0.98),
-        rgba(233,240,250,0.9)
-      );
-      padding: 22px 24px;
-      border-radius: 22px;
-      box-shadow: 0 10px 24px rgba(38, 52, 82, 0.18);
-      border: 1px solid rgba(205, 188, 170, 0.95);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .wish-item::before {
-      content: "";
-      position: absolute;
-      width: 110px;
-      height: 110px;
-      top: -40px;
-      right: -35px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(157,177,207,0.5), transparent 65%);
-      opacity: 0.7;
-    }
-
-    .wish-item::after {
-      content: "";
-      position: absolute;
-      width: 80px;
-      height: 80px;
-      bottom: -30px;
-      left: -25px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 70% 0%, rgba(214,191,163,0.6), transparent 65%);
-      opacity: 0.85;
-    }
-
-    .wish-message {
-      position: relative;
-      z-index: 2;
-      font-family: "Playfair Display", serif;
-      font-size: 0.98rem;
-      color: #3a414e;
-      line-height: 1.7;
-    }
-
-    .wish-name {
-      position: relative;
-      z-index: 2;
-      margin-top: 14px;
-      text-align: right;
-      font-family: "Dancing Script", cursive;
-      font-size: 1.2rem;
-      color: #495366;
-    }
-
-    @keyframes scrollLeft {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    @media(max-width: 480px){
-      .wish-item {
-        min-width: 260px;
-        font-size: 0.95rem;
-      }
-    }
-
-    /* FORMS */
+    /* RSVP / FORMS */
     form {
       display: grid;
       gap: 0.7rem;
@@ -595,6 +456,43 @@
       box-shadow: 0 14px 28px rgba(83, 97, 127, 0.6);
     }
 
+    /* WISHES LIST (like Invitez style) */
+    .wishes-list {
+      margin-top: 1rem;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 0.4rem;
+    }
+
+    .wish-item {
+      padding: 0.7rem 0.85rem;
+      background: rgba(244, 246, 251, 0.95);
+      border-radius: 16px;
+      margin-bottom: 0.6rem;
+      border: 1px solid rgba(203, 214, 234, 0.9);
+      font-size: 0.9rem;
+    }
+
+    .wish-item strong {
+      display: block;
+      margin-bottom: 0.15rem;
+      color: #3c465f;
+    }
+
+    .wish-msg {
+      display: block;
+      color: #636a7a;
+    }
+
+    .wish-time {
+      display: block;
+      font-size: 0.75rem;
+      color: #888fa2;
+      margin-top: 0.25rem;
+      text-align: right;
+    }
+
+    /* CONTACT LIST */
     .contact-list {
       display: grid;
       gap: 1rem;
@@ -655,6 +553,7 @@
       padding: 2rem 1.2rem 3.4rem;
     }
 
+    /* TOAST */
     .toast {
       position: fixed;
       top: 16px;
@@ -678,6 +577,7 @@
       transform: translateX(-50%) translateY(3px);
     }
 
+    /* BOTTOM NAV */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -721,6 +621,7 @@
       }
     }
 
+    /* MUSIC BUTTON */
     .music-btn {
       position: fixed;
       bottom: 70px;
@@ -744,12 +645,13 @@
   </style>
 </head>
 <body>
-  <!-- AUDIO: weddingsong.mp3 must be in same folder -->
-  <audio id="bgMusic" loop playsinline>
-    <source src="weddingsong.mp3" type="audio/mpeg">
+  <!-- Audio (Can't Help Falling In Love - instrumental) -->
+  <audio id="bgMusic" loop>
+    <source src="weddingsong.mp3" type="audio/mpeg" />
   </audio>
   <button id="musicBtn" class="music-btn">🔇 Music Off</button>
 
+  <!-- TOAST -->
   <div id="toast" class="toast"></div>
 
   <!-- HERO -->
@@ -840,7 +742,7 @@
       </div>
     </div>
 
-    <!-- MAP placeholder (update link later) -->
+    <!-- OPTIONAL MAP CARD (you can edit href later) -->
     <div class="card">
       <div class="card-inner">
         <div class="section-title">
@@ -875,33 +777,26 @@
     </div>
   </section>
 
-  <!-- WISH / GUEST BOOK (auto-scroll strip) -->
+  <!-- WISHES -->
   <section id="wish">
-    <div class="card guestbook-card">
+    <div class="card">
       <div class="card-inner">
-
         <div class="section-title">
           <small>Guest Book</small>
           <h2>Titipan Ucapan</h2>
         </div>
-
-        <p style="font-size:0.95rem; text-align:center;">
-          Barisan ucapan &amp; doa restu daripada tetamu istimewa kami. 💌
+        <p style="text-align: center; font-size: 0.95rem;">
+          Tinggalkan ucapan dan doa restu anda buat pasangan pengantin. Ucapan anda akan
+          terpahat sebagai kenangan indah buat kami. 💙
         </p>
 
         <form id="wishForm">
-          <input type="text" id="wishName" placeholder="Nama" required>
+          <input type="text" id="wishName" placeholder="Nama" required />
           <textarea id="wishMessage" placeholder="Ucapan" required></textarea>
           <button type="submit">Hantar Ucapan</button>
         </form>
 
-        <div class="guestbook-strip">
-          <div class="marquee" id="marquee">
-            <div class="marquee-content" id="wishesList"></div>
-            <div class="marquee-content" id="wishesClone"></div>
-          </div>
-        </div>
-
+        <div class="wishes-list" id="wishesList"></div>
       </div>
     </div>
   </section>
@@ -914,7 +809,7 @@
           <small>RSVP</small>
           <h2>Maklum Kehadiran</h2>
         </div>
-        <p style="font-size:0.95rem; text-align:center;">
+        <p style="font-size: 0.95rem; text-align: center;">
           Mohon jasa baik anda untuk memaklumkan kehadiran bagi memudahkan
           urusan penyediaan jamuan.
         </p>
@@ -937,7 +832,7 @@
           <input
             type="text"
             id="rsvpRemark"
-            placeholder="Catatan (contoh: alergi makanan, lain-lain)"
+            placeholder="Catatan (contoh: makanan, lain-lain)"
           />
           <button type="submit">Hantar RSVP</button>
         </form>
@@ -997,7 +892,7 @@
     kehadiran &amp; doa restu anda. 💙
   </div>
 
-  <!-- NAV BAWAH -->
+  <!-- BOTTOM NAV -->
   <div class="bottom-nav">
     <button data-target="#home" class="active">Home</button>
     <button data-target="#details">Details</button>
@@ -1007,11 +902,13 @@
   </div>
 
   <script>
+    // ====== CONFIG: SCRIPT URL (Google Apps Script) ======
     const SCRIPT_URL =
       "https://script.google.com/macros/s/AKfycbwRep80DpJmbi2jmwyu1RgEeenR2B-6mReb5tgPn36wRh5r2bo-1XDQrF4Jf3saUgTOLA/exec";
 
-    // COUNTDOWN
+    // ====== COUNTDOWN ======
     const targetDate = new Date(2025, 10, 29, 11, 0, 0);
+
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
@@ -1039,11 +936,13 @@
       cdMins.textContent = mins;
       cdSecs.textContent = secs;
     }
+
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // NAV
+    // ====== NAV ACTIVE ======
     const navButtons = document.querySelectorAll(".bottom-nav button");
+
     navButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const target = document.querySelector(btn.dataset.target);
@@ -1069,7 +968,7 @@
       });
     });
 
-    // TOAST
+    // ====== TOAST ======
     function showToast(msg) {
       const toast = document.getElementById("toast");
       toast.textContent = msg;
@@ -1077,15 +976,16 @@
       setTimeout(() => toast.classList.remove("show"), 2500);
     }
 
-    // MUSIC
+    // ====== MUSIC ======
     const bgMusic = document.getElementById("bgMusic");
     const musicBtn = document.getElementById("musicBtn");
-    bgMusic.volume = 0.6;
-
-    document.addEventListener("DOMContentLoaded", () => {
-      bgMusic.muted = true;
-      bgMusic.play().catch(() => {});
-    });
+    bgMusic.volume = 0.7;
+    bgMusic.muted = true;
+    bgMusic
+      .play()
+      .catch(() => {
+        // ignore autoplay errors
+      });
 
     musicBtn.addEventListener("click", () => {
       if (bgMusic.muted) {
@@ -1100,10 +1000,9 @@
       }
     });
 
-    // WISHES (Guest Book)
+    // ====== SUBMIT WISHES ======
     const wishForm = document.getElementById("wishForm");
     const wishesList = document.getElementById("wishesList");
-    const wishesClone = document.getElementById("wishesClone");
 
     wishForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -1118,22 +1017,21 @@
           body: JSON.stringify({
             mode: "wish",
             name,
-            message
-          })
+            message,
+          }),
         });
 
         showToast("Terima kasih atas ucapan anda! 💙");
 
         const item = document.createElement("div");
         item.className = "wish-item";
+        const now = new Date().toLocaleString("ms-MY");
         item.innerHTML = `
-          <div class="wish-message">${message}</div>
-          <div class="wish-name">${name}</div>
+          <strong>${name}</strong>
+          <span class="wish-msg">${message}</span>
+          <span class="wish-time">${now}</span>
         `;
-
-        wishesList.appendChild(item);
-        const cloneItem = item.cloneNode(true);
-        wishesClone.appendChild(cloneItem);
+        wishesList.prepend(item);
 
         wishForm.reset();
       } catch (err) {
@@ -1142,8 +1040,9 @@
       }
     });
 
-    // RSVP
+    // ====== SUBMIT RSVP ======
     const rsvpForm = document.getElementById("rsvpForm");
+
     rsvpForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = document.getElementById("rsvpName").value.trim();
@@ -1162,8 +1061,8 @@
             name,
             pax,
             status,
-            remark
-          })
+            remark,
+          }),
         });
 
         showToast("Terima kasih, RSVP anda telah diterima 💙");
