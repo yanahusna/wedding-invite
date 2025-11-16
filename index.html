@@ -1,4 +1,4 @@
-remove buka jemputan button, and remove rsvp form, or any function of rvsp in this code: <!DOCTYPE html> 
+ <!DOCTYPE html> 
 <html lang="ms">
 <head>
   <meta charset="UTF-8" />
@@ -613,12 +613,6 @@ remove buka jemputan button, and remove rsvp form, or any function of rvsp in th
         hadir memeriahkan majlis walimatul urus putera &amp; puteri kami. </br></br><b> Nur Edreena Binti Mokhzamany </br> </br> & </br> </br> Nazrul Naim Bin Ghazali</b>
       </p>
 
-    
-
-      <button class="hero-btn"
-        onclick="document.getElementById('details').scrollIntoView({ behavior: 'smooth' })">
-        Buka Jemputan <span>↓</span>
-      </button>
     </div>
   </section>
 
@@ -751,42 +745,6 @@ remove buka jemputan button, and remove rsvp form, or any function of rvsp in th
     </div>
   </section>
 
-  <!-- RSVP -->
-  <section id="rsvp">
-    <div class="card">
-      <div class="section-title">
-        <small>RSVP</small>
-        <h2>Maklum Kehadiran</h2>
-      </div>
-      <p style="font-size:0.95rem; text-align:center;">
-        Mohon jasa baik anda untuk memaklumkan kehadiran bagi memudahkan
-        urusan penyediaan jamuan.
-      </p>
-
-      <form id="rsvpForm">
-        <input type="text" id="rsvpName" placeholder="Nama" required />
-        <input
-          type="number"
-          id="rsvpPax"
-          min="1"
-          value="1"
-          placeholder="Bilangan kehadiran"
-          required
-        />
-        <select id="rsvpStatus" required>
-          <option value="">Pilih status</option>
-          <option value="Hadir">Akan Hadir</option>
-          <option value="Tidak Hadir">Tidak Dapat Hadir</option>
-        </select>
-        <input
-          type="text"
-          id="rsvpRemark"
-          placeholder="Catatan (contoh: makanan, lain-lain)"
-        />
-        <button type="submit">Hantar RSVP</button>
-      </form>
-    </div>
-  </section>
 
   <!-- CONTACT -->
   <section id="contact">
@@ -836,7 +794,6 @@ remove buka jemputan button, and remove rsvp form, or any function of rvsp in th
     <button data-target="#home" class="active">Home</button>
     <button data-target="#details">Details</button>
     <button data-target="#wish">Wish</button>
-    <button data-target="#rsvp">RSVP</button>
     <button data-target="#contact">Contact</button>
   </div>
 
@@ -916,7 +873,7 @@ const targetDate = new Date(2025, 11, 20, 11, 0, 0);
     });
 
     window.addEventListener("scroll", () => {
-      const sections = ["#home", "#details", "#wish", "#rsvp", "#contact"].map(
+      const sections = ["#home", "#details", "#wish", "#contact"].map(
         (id) => document.querySelector(id)
       );
       let currentId = "#home";
@@ -1067,38 +1024,8 @@ const targetDate = new Date(2025, 11, 20, 11, 0, 0);
       }
     });
 
-    // ====== SUBMIT RSVP (POST to doPost, mode: 'rsvp') ======
-    const rsvpForm = document.getElementById("rsvpForm");
-
-    rsvpForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const name = document.getElementById("rsvpName").value.trim();
-      const pax = document.getElementById("rsvpPax").value || "1";
-      const status = document.getElementById("rsvpStatus").value;
-      const remark = document.getElementById("rsvpRemark").value.trim();
-
-      if (!name || !status) return;
-
-      try {
-        await fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify({
-            mode: "rsvp",
-            name,
-            pax,
-            status,
-            remark,
-          }),
-        });
-
-        showToast("Terima kasih, RSVP anda telah diterima 💙");
-        rsvpForm.reset();
-      } catch (err) {
-        console.error(err);
-        showToast("Maaf, penghantaran gagal. Cuba lagi sebentar lagi.");
-      }
-    });
+  
+   
   </script>
 </body>
 </html>
