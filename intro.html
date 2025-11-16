@@ -2,73 +2,132 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<title>Intro Haziq & Aina</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opening</title>
+
 <style>
   body {
     margin: 0;
     overflow: hidden;
-    background: url("wallpaper.png") center/cover fixed;
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     font-family: "Playfair Display", serif;
-    text-align: center;
-    color: #2e3547;
+    background: url("wallpaper.png") center/cover no-repeat fixed;
   }
 
-  .title { font-size: 2.2rem; opacity: 0; animation: zoomIn 1s forwards; }
-  .name { font-size: 3.4rem; opacity: 0; margin: 5px 0; }
-  .name.a { animation: fadeUp 1s forwards 0.3s; }
-  .amp { font-size: 2.6rem; color:#7f8fb8; opacity: 0; animation: zoomIn 1s forwards 0.6s; }
-  .name.b { animation: fadeDown 1s forwards 0.9s; }
+  /* CENTER CONTENT */
+  .center-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #2f3650;
+  }
 
-  .btn {
+  .center-box h2 {
+    font-size: 2rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .center-box h1 {
+    font-size: 3rem;
+  }
+
+  .amp {
+    color: #7f8fb8;
+    padding: 0 10px;
+  }
+
+  .center-box button {
     margin-top: 25px;
-    padding: 12px 34px;
+    padding: 12px 38px;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 999px;
     background: #556286;
     color: white;
-    border-radius: 50px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-weight: 600;
     cursor: pointer;
-    opacity: 0;
-    animation: zoomIn 1s forwards 1.4s;
-    box-shadow: 0 12px 24px rgba(86,98,134,0.35);
+    box-shadow: 0 12px 26px rgba(85,98,134,0.45);
+    transition: 0.2s;
   }
 
-  @keyframes zoomIn {
-    from { opacity: 0; transform: scale(0.7); }
-    to   { opacity: 1; transform: scale(1); }
+  .center-box button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(85,98,134,0.55);
   }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(25px); }
-    to   { opacity: 1; transform: translateY(0); }
+
+  /* ==== DOOR PANELS ==== */
+  .door {
+    position: fixed;
+    top: 0;
+    width: 50%;
+    height: 100vh;
+    background: rgba(250,250,255,0.92);
+    backdrop-filter: blur(6px);
+    z-index: 9998;
+    transition: transform 1.4s ease-in-out;
   }
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-25px); }
-    to   { opacity: 1; transform: translateY(0); }
+
+  #leftDoor {
+    left: 0;
+    border-right: 1px solid rgba(160,168,190,0.8);
+  }
+
+  #rightDoor {
+    right: 0;
+    border-left: 1px solid rgba(160,168,190,0.8);
+  }
+
+  /* ANIMATION TO OPEN */
+  .open-left {
+    transform: translateX(-100%);
+  }
+  .open-right {
+    transform: translateX(100%);
   }
 </style>
 </head>
+
 <body>
 
-<div>
-  <div class="title">Walimatulurus</div>
-  <div class="name a">Haziq</div>
-  <div class="amp">&amp;</div>
-  <div class="name b">Aina</div>
+<!-- DOOR PANELS -->
+<div id="leftDoor" class="door"></div>
+<div id="rightDoor" class="door"></div>
 
-  <button class="btn" onclick="openInvitation()">Open</button>
+<!-- CENTER CONTENT -->
+<div class="center-box">
+  <h2>Walimatulurus</h2>
+
+  <h1>
+    Haziq <span class="amp">&amp;</span> Aina
+  </h1>
+
+  <div style="margin-top:10px; font-size:1rem; letter-spacing:0.22em; color:#6e7590;">
+    29 November 2025
+  </div>
+
+  <div style="margin-top:18px; font-size:1.4rem;">
+    بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+  </div>
+
+  <button id="openBtn">Buka Jemputan</button>
 </div>
 
 <script>
-function openInvitation() {
-  // send signal back to index.html
-  window.parent.postMessage("OPEN_INVITATION", "*");
-}
+  document.getElementById("openBtn").onclick = function () {
+
+    // Animate doors
+    document.getElementById("leftDoor").classList.add("open-left");
+    document.getElementById("rightDoor").classList.add("open-right");
+
+    // Wait for animation, then tell index.html to continue
+    setTimeout(() => {
+      window.parent.postMessage("OPEN_INVITATION", "*");
+    }, 1400);
+  };
 </script>
 
 </body>
