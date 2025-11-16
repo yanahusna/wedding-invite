@@ -5,303 +5,1031 @@
   <title>Walimatul Urus – Haziq & Aina</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
     :root {
-      --bg-main: #f4f6fb;
+      --bg-main: #f4f7fb;
       --bg-card: #ffffff;
-      --blue-deep: #53617f;
-      --grey-soft: #f1f2f6;
-      --grey-text: #4b4f57;
-      --accent: #d6bfa3;
-      --shadow-soft: 0 18px 40px rgba(41, 53, 84, 0.15);
+      --blue-deep: #4d5f80;
+      --blue-soft: #c5d4f0;
+      --grey-soft: #f0f2f7;
+      --grey-text: #4b515e;
+      --accent: #d6c4a8;
+      --accent-soft: #f5ebdd;
+      --shadow-soft: 0 18px 40px rgba(38, 53, 93, 0.16);
+      --radius-card: 24px;
     }
 
-    * { box-sizing: border-box; scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #f5f6fb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
       color: var(--grey-text);
+      background:
+        radial-gradient(circle at top left, rgba(197, 212, 240, 0.6), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(245, 235, 221, 0.55), transparent 55%),
+        #f5f7fc;
     }
 
-    h1,h2,h3 {
-      font-family: "Playfair Display", serif;
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    h1, h2, h3 {
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      margin: 0;
     }
 
     section {
       padding: 4rem 1.4rem;
       max-width: 900px;
       margin: 0 auto;
+      position: relative;
     }
 
-    /* HERO */
+    /* Simple fade */
+    .hidden { display: none; }
+
+    /* Intro overlay (Open Invitation) */
+    .intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #cbd8f5, #f7f9ff 45%, #d8e2ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      z-index: 200;
+      overflow: hidden;
+    }
+
+    .intro-inner {
+      position: relative;
+      padding: 2.5rem 2rem 3rem;
+      background: rgba(255,255,255,0.95);
+      border-radius: 30px;
+      box-shadow: 0 24px 60px rgba(45, 64, 112, 0.35);
+      border: 1px solid rgba(194, 210, 245, 0.9);
+    }
+
+    .intro-title {
+      font-size: 2.6rem;
+      color: #35415b;
+      letter-spacing: 0.06em;
+    }
+
+    .intro-sub {
+      font-size: 1.1rem;
+      color: #5c6680;
+      margin-top: 0.6rem;
+    }
+
+    .intro-names {
+      margin-top: 1.6rem;
+      font-size: 2.5rem;
+      color: #34405d;
+    }
+
+    .intro-date {
+      margin-top: 0.7rem;
+      font-size: 0.98rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6d7590;
+    }
+
+    .intro-btn {
+      margin-top: 2.1rem;
+      padding: 0.9rem 2.6rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #4d5f80, #6c80a5);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(46, 63, 97, 0.55);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .intro-btn span { margin-left: 0.5rem; font-size: 1.2rem; }
+    .intro-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 48px rgba(46, 63, 97, 0.65);
+    }
+
+    /* Floating petals in intro */
+    @keyframes petal-fall {
+      0% { transform: translateY(-20px) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.9; }
+      100% { transform: translateY(110vh) translateX(30px) rotate(320deg); opacity: 0; }
+    }
+    .petal {
+      position: absolute;
+      font-size: 1.8rem;
+      opacity: 0;
+      animation: petal-fall linear infinite;
+    }
+
+    /* Hero section */
     .hero {
       min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
     }
+
     .hero-card {
-      background: white;
-      padding: 3rem 2rem;
-      border-radius: 28px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 32px;
+      padding: 2.4rem 1.7rem 3rem;
       box-shadow: var(--shadow-soft);
-      border: 1px solid #cbd6ea;
+      border: 1px solid rgba(197, 212, 240, 0.95);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(100, 120, 160, 0.16);
+    }
+
+    .hero-card::before {
+      width: 260px; height: 260px;
+      top: -140px; right: -80px;
+    }
+    .hero-card::after {
+      width: 210px; height: 210px;
+      bottom: -130px; left: -60px;
+      border-color: rgba(214, 196, 168, 0.45);
     }
 
     .hero-subtitle {
-      font-size: .8rem;
-      letter-spacing: .2em;
-      color: #6a748b;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-size: 0.76rem;
+      color: #76809a;
     }
 
     .hero-names {
-      font-size: 2.7rem;
-      color: #37415b;
+      font-size: 2.6rem;
+      margin-top: 1rem;
+      color: #343f5b;
+      letter-spacing: 0.05em;
     }
 
-    .hero-amp { color: var(--accent); }
+    .hero-amp { font-size: 1.1rem; color: var(--accent); padding: 0 0.4rem; }
 
-    .hero-btn {
-      margin-top: 1.5rem;
-      padding: .8rem 2rem;
-      border-radius: 999px;
-      border: none;
-      background: var(--blue-deep);
-      color: white;
-      cursor: pointer;
-      font-size: .9rem;
-      letter-spacing: .14em;
+    .hero-date {
+      margin-top: 0.45rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.86rem;
+      color: #787f93;
     }
 
-    /* CARD */
+    .bismillah {
+      margin-top: 1.3rem;
+      font-size: 1.25rem;
+      color: #4c5672;
+    }
+
+    .hero p {
+      margin-top: 0.9rem;
+      font-size: 0.97rem;
+      color: #626a7b;
+    }
+
+    .hero-hashtag {
+      margin-top: 1.6rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.23em;
+      text-transform: uppercase;
+      color: var(--blue-deep);
+    }
+
+    /* Generic card */
     .card {
       background: var(--bg-card);
-      padding: 2rem;
-      border-radius: 24px;
+      padding: 2rem 1.7rem;
+      border-radius: var(--radius-card);
       box-shadow: var(--shadow-soft);
-      border: 1px solid #cbd6ea;
+      border: 1px solid rgba(197, 212, 240, 0.9);
       margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
     }
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 170px; height: 170px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 10% 10%, rgba(197,212,240,0.35), transparent 70%);
+      top: -80px; right: -40px; opacity: 0.9;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 130px; height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 90% 90%, rgba(214,196,168,0.32), transparent 70%);
+      bottom: -60px; left: -30px;
+    }
+    .card-inner { position: relative; z-index: 2; }
 
     .section-title {
       text-align: center;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.6rem;
+    }
+    .section-title small {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #858ea3;
+      margin-bottom: 0.25rem;
+    }
+    .section-title h2 {
+      font-size: 1.6rem;
+      color: #38435f;
     }
 
-    /* WISHES */
+    /* Details */
+    .details-grid {
+      display: grid;
+      gap: 1.2rem;
+      margin-top: 0.4rem;
+    }
+    @media (min-width: 720px) {
+      .details-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .detail-box {
+      background: rgba(244,247,252,0.9);
+      border-radius: 18px;
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(197,212,240,0.95);
+    }
+    .detail-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #969fb4;
+      margin-bottom: 0.2rem;
+    }
+    .detail-box h3 {
+      font-size: 1.03rem;
+      margin: 0.05rem 0 0.25rem;
+      color: #394463;
+    }
+    .detail-box p {
+      margin: 0;
+      font-size: 0.93rem;
+      color: #656d7d;
+    }
+
+    .dua {
+      font-size: 0.93rem;
+      text-align: center;
+      color: #6c7383;
+      margin-top: 1.7rem;
+      background: rgba(245,235,221,0.65);
+      border-radius: 18px;
+      padding: 0.95rem 1rem;
+      border: 1px solid rgba(214,196,168,0.85);
+    }
+
+    /* Countdown */
+    .countdown-wrapper { margin-top: 2.1rem; }
+    .countdown-title {
+      text-align: center;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7c8598;
+      margin-bottom: 0.7rem;
+    }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .count-box {
+      width: 74px;
+      text-align: center;
+      padding: 0.55rem 0.4rem;
+      border-radius: 18px;
+      background: var(--grey-soft);
+      border: 1px solid rgba(197,212,240,0.9);
+    }
+    .count-box strong {
+      display: block;
+      font-size: 1.25rem;
+      color: #3b4561;
+    }
+    .count-box span {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #8c94a5;
+    }
+
+    /* Forms */
+    form {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 0.9rem;
+    }
+
+    input, textarea, select {
+      border-radius: 999px;
+      border: 1px solid rgba(197,212,240,0.95);
+      padding: 0.65rem 1rem;
+      font: inherit;
+      width: 100%;
+      outline: none;
+      background: #f8f9fd;
+      transition: 0.15s ease;
+      color: #464b57;
+    }
+    textarea {
+      border-radius: 18px;
+      min-height: 96px;
+      resize: vertical;
+      padding-top: 0.75rem;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--blue-deep);
+      box-shadow: 0 0 0 2px rgba(77,95,128,0.18);
+      background: #ffffff;
+    }
+
+    button[type="submit"] {
+      border-radius: 999px;
+      border: none;
+      padding: 0.8rem 1.6rem;
+      background: linear-gradient(135deg, var(--blue-deep), #65789f);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      justify-self: flex-start;
+      box-shadow: 0 12px 26px rgba(63,81,122,0.52);
+      transition: 0.16s ease;
+    }
+    button[type="submit"]:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px rgba(63,81,122,0.6);
+    }
+
+    /* Wishes list */
     .wishes-list {
-      max-height: 260px;
+      margin-top: 1.3rem;
+      max-height: 270px;
       overflow-y: auto;
-      margin-top: 1rem;
+      padding-right: 0.4rem;
     }
-
     .wish-item {
-      background: #f0f3fa;
-      padding: .8rem 1rem;
-      border-radius: 14px;
-      margin-bottom: .7rem;
-      border: 1px solid #d0d8e8;
+      padding: 0.7rem 0.9rem;
+      background: rgba(244,247,252,0.98);
+      border-radius: 16px;
+      margin-bottom: 0.7rem;
+      border: 1px solid rgba(197,212,240,0.95);
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .wish-item strong {
+      display: block;
+      margin-bottom: 0.18rem;
+      color: #3c4660;
+    }
+    .wish-msg {
+      display: block;
+      color: #646c7d;
+    }
+    .wish-time {
+      display: block;
+      font-size: 0.75rem;
+      color: #8b93a8;
+      margin-top: 0.25rem;
+      text-align: right;
     }
 
-    .wish-item strong { color: #364159; }
+    /* Contact */
+    .contact-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 0.6rem;
+    }
+    @media (min-width: 640px) {
+      .contact-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    .contact-item {
+      padding: 0.95rem 1.1rem;
+      border-radius: 18px;
+      background: var(--grey-soft);
+      border: 1px solid rgba(197,212,240,0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+    }
+    .contact-item strong {
+      font-size: 1rem;
+      color: #3a425c;
+    }
+    .contact-item small {
+      font-size: 0.83rem;
+      color: #7e8798;
+    }
+    .contact-item a {
+      margin-top: 0.5rem;
+      align-self: flex-start;
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid var(--blue-deep);
+      font-size: 0.82rem;
+      background: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: 0.15s ease;
+    }
+    .contact-item a:hover {
+      background: var(--blue-deep);
+      color: #ffffff;
+      box-shadow: 0 9px 19px rgba(77,95,128,0.52);
+    }
 
-    /* MUSIC BUTTON */
+    .footer {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #7c8495;
+      padding: 2rem 1.2rem 3.5rem;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffffff;
+      color: #3b455f;
+      padding: 0.8rem 1.25rem;
+      border-radius: 999px;
+      box-shadow: 0 12px 26px rgba(63,81,122,0.55);
+      border: 1px solid rgba(197,212,240,0.95);
+      font-size: 0.85rem;
+      z-index: 150;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(3px);
+    }
+
+    /* Bottom nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(249,250,253,0.96);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid rgba(197,212,240,0.98);
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.7rem;
+      z-index: 80;
+    }
+    .bottom-nav button {
+      border-radius: 999px;
+      border: 0;
+      padding: 0.3rem 0.9rem;
+      background: transparent;
+      font-size: 0.75rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: #7f8798;
+    }
+    .bottom-nav button.active {
+      background: var(--blue-deep);
+      color: #fff;
+      box-shadow: 0 7px 17px rgba(77,95,128,0.52);
+    }
+    @media (min-width: 900px) {
+      .bottom-nav {
+        max-width: 900px;
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 999px 999px 0 0;
+      }
+    }
+
+    /* Music toggle */
     .music-btn {
       position: fixed;
       bottom: 70px;
-      right: 15px;
+      right: 16px;
       background: var(--blue-deep);
       color: white;
       border: none;
       padding: 10px 16px;
       border-radius: 999px;
+      box-shadow: 0 9px 20px rgba(0,0,0,0.26);
+      font-size: 13px;
+      z-index: 90;
       cursor: pointer;
-      z-index: 999;
+      letter-spacing: 0.05em;
     }
-
-    .toast {
-      position: fixed;
-      top: 15px; left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      padding: .7rem 1.2rem;
-      border-radius: 999px;
-      color: #37415b;
-      border: 1px solid #cbd6ea;
-      box-shadow: var(--shadow-soft);
-      opacity: 0;
-      transition: .2s;
-      z-index: 999;
+    .music-btn.active {
+      background: var(--accent);
+      color: #3b455f;
     }
-
-    .toast.show { opacity: 1; }
   </style>
 </head>
-
 <body>
+  <!-- Background music -->
+  <audio id="bgMusic" src="weddingsong.mp3" loop></audio>
+  <button id="musicBtn" class="music-btn hidden">🔇 Music Off</button>
 
-  <!-- MUSIC -->
-  <audio id="bgMusic" loop>
-    <source src="weddingsong.mp3" type="audio/mpeg">
-  </audio>
-  <button id="musicBtn" class="music-btn">🔇 Music Off</button>
+  <!-- Intro screen (Open Invitation) -->
+  <div id="introOverlay" class="intro-overlay">
+    <div class="intro-inner">
+      <!-- floating petals -->
+      <span class="petal" style="left: 10%; animation-duration: 10s; animation-delay: 0s;">🌸</span>
+      <span class="petal" style="left: 25%; animation-duration: 12s; animation-delay: 1s;">🌺</span>
+      <span class="petal" style="left: 50%; animation-duration: 11s; animation-delay: 2s;">🌸</span>
+      <span class="petal" style="left: 70%; animation-duration: 13s; animation-delay: 0.5s;">🌺</span>
+      <span class="petal" style="left: 85%; animation-duration: 10s; animation-delay: 1.5s;">🌸</span>
 
+      <div style="position:relative; z-index:2;">
+        <div style="font-size:0.8rem; letter-spacing:0.2em; text-transform:uppercase; color:#707897;">
+          Undangan Majlis Walimatul Urus
+        </div>
+        <h1 class="intro-title">Haziq &amp; Aina</h1>
+        <div class="intro-date">29 November 2025 · Sabtu</div>
+        <p class="intro-sub">
+          Dengan penuh rasa syukur, kami mengundang anda bagi meraikan
+          hari bahagia kami.
+        </p>
+        <button id="openInvitationBtn" class="intro-btn">
+          Buka Jemputan <span>♪</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
   <div id="toast" class="toast"></div>
 
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <div class="hero-card">
-      <div class="hero-subtitle">UNDANGAN MAJLIS WALIMATUL URUS</div>
+  <!-- Main page content -->
+  <div id="pageContent" class="hidden">
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-card">
+        <div class="hero-subtitle">UNDANGAN MAJLIS WALIMATUL URUS</div>
+        <h1 class="hero-names">
+          Haziq <span class="hero-amp">&amp;</span> Aina
+        </h1>
+        <div class="hero-date">29 NOVEMBER 2025 · SABTU</div>
 
-      <h1 class="hero-names">Haziq <span class="hero-amp">&amp;</span> Aina</h1>
+        <div class="bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
 
-      <p>29 November 2025</p>
-      <p>Dengan penuh kesyukuran kami menjemput anda ke majlis bahagia kami.</p>
+        <p>
+          Assalamualaikum w.b.t &amp; salam sejahtera. Dengan penuh rasa syukur
+          ke hadrat Ilahi, kami menjemput Dato’/Datin/Tuan/Puan/Encik/Cik untuk
+          hadir memeriahkan majlis walimatul urus putera &amp; puteri kami.
+        </p>
 
-      <button class="hero-btn" onclick="document.getElementById('details').scrollIntoView({behavior:'smooth'})">
-        Buka Jemputan
-      </button>
-    </div>
-  </section>
-
-  <!-- DETAILS -->
-  <section id="details">
-    <div class="card">
-      <div class="section-title">
-        <h2>Butiran Majlis</h2>
+        <div class="hero-hashtag">#AinaHazMyHeart</div>
       </div>
-      <p><strong>Tarikh:</strong> 29 November 2025</p>
-      <p><strong>Masa:</strong> 11.00 pagi – 4.00 petang</p>
-      <p><strong>Lokasi:</strong> Felda Palong 2, Gemas</p>
+    </section>
+
+    <!-- DETAILS -->
+    <section id="details">
+      <div class="card">
+        <div class="card-inner">
+          <div class="section-title">
+            <small>Butiran Majlis</small>
+            <h2>Tarikh, Masa &amp; Lokasi</h2>
+          </div>
+
+          <div class="details-grid">
+            <div class="detail-box">
+              <div class="detail-label">Tarikh</div>
+              <h3>Sabtu</h3>
+              <p>29 November 2025</p>
+            </div>
+            <div class="detail-box">
+              <div class="detail-label">Atur Cara</div>
+              <h3>Jamuan &amp; Ketibaan</h3>
+              <p>Jamuan: 11.00 pagi<br />Ketibaan pengantin: 12.00 tengah hari</p>
+            </div>
+            <div class="detail-box">
+              <div class="detail-label">Lokasi</div>
+              <h3>Felda Palong 2</h3>
+              <p>No. 525, Felda Palong 2<br />73450 Gemas, Negeri Sembilan</p>
+            </div>
+          </div>
+
+          <p class="dua">
+            Ya Allah, satukanlah hati kedua mempelai ini dalam ketaatan kepada-Mu.
+            Kurniakanlah mereka ketenangan, kasih sayang dan rahmat dalam
+            rumahtangga yang dibina hingga ke syurga-Mu. آمِين يا رَبَّ العَالَمِين.
+          </p>
+
+          <div class="countdown-wrapper">
+            <div class="countdown-title">Menuju Hari Bahagia</div>
+            <div class="countdown">
+              <div class="count-box">
+                <strong id="cd-days">0</strong>
+                <span>Hari</span>
+              </div>
+              <div class="count-box">
+                <strong id="cd-hours">0</strong>
+                <span>Jam</span>
+              </div>
+              <div class="count-box">
+                <strong id="cd-mins">0</strong>
+                <span>Minit</span>
+              </div>
+              <div class="count-box">
+                <strong id="cd-secs">0</strong>
+                <span>Saat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAP CARD (edit href later) -->
+      <div class="card">
+        <div class="card-inner">
+          <div class="section-title">
+            <small>Lokasi</small>
+            <h2>Panduan Arah</h2>
+          </div>
+          <p style="text-align:center; font-size:0.95rem; margin-bottom:1rem;">
+            Sila gunakan aplikasi peta pilihan anda untuk ke lokasi majlis.
+          </p>
+          <div style="text-align:center;">
+            <a
+              href="#"
+              onclick="showToast('Sila kemaskini pautan Google Maps dalam kod HTML.'); return false;"
+              style="
+                display:inline-flex; align-items:center; justify-content:center;
+                padding:0.65rem 1.6rem; border-radius:999px;
+                border:1px solid var(--blue-deep);
+                background:var(--blue-deep); color:white;
+                font-size:0.86rem; letter-spacing:0.12em; text-transform:uppercase;
+                box-shadow:0 12px 26px rgba(63,81,122,0.6);
+              "
+            >Buka Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WISHES -->
+    <section id="wish">
+      <div class="card">
+        <div class="card-inner">
+          <div class="section-title">
+            <small>Guest Book</small>
+            <h2>Titipan Ucapan</h2>
+          </div>
+          <p style="text-align:center; font-size:0.95rem;">
+            Tinggalkan ucapan dan doa restu anda buat pasangan pengantin. Ucapan anda akan
+            terpahat sebagai kenangan indah buat kami. 💙
+          </p>
+
+          <form id="wishForm">
+            <input type="text" id="wishName" placeholder="Nama" required />
+            <textarea id="wishMessage" placeholder="Ucapan" required></textarea>
+            <button type="submit">Hantar Ucapan</button>
+          </form>
+
+          <div class="wishes-list" id="wishesList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP -->
+    <section id="rsvp">
+      <div class="card">
+        <div class="card-inner">
+          <div class="section-title">
+            <small>RSVP</small>
+            <h2>Maklum Kehadiran</h2>
+          </div>
+          <p style="font-size:0.95rem; text-align:center;">
+            Mohon jasa baik anda untuk memaklumkan kehadiran bagi memudahkan
+            urusan penyediaan jamuan.
+          </p>
+
+          <form id="rsvpForm">
+            <input type="text" id="rsvpName" placeholder="Nama" required />
+            <input
+              type="number"
+              id="rsvpPax"
+              min="1"
+              value="1"
+              placeholder="Bilangan kehadiran"
+              required
+            />
+            <select id="rsvpStatus" required>
+              <option value="">Pilih status</option>
+              <option value="Hadir">Akan Hadir</option>
+              <option value="Tidak Hadir">Tidak Dapat Hadir</option>
+            </select>
+            <input
+              type="text"
+              id="rsvpRemark"
+              placeholder="Catatan (contoh: makanan, lain-lain)"
+            />
+            <button type="submit">Hantar RSVP</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="card">
+        <div class="card-inner">
+          <div class="section-title">
+            <small>Hubungi</small>
+            <h2>Ahli Keluarga</h2>
+          </div>
+
+          <div class="contact-list">
+            <div class="contact-item">
+              <strong>Ab Karim</strong>
+              <small>Bapa Pengantin</small>
+              <small>+60 12-345 6789</small>
+              <a href="https://wa.me/60123456789" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+            <div class="contact-item">
+              <strong>Azizah</strong>
+              <small>Ibu Pengantin</small>
+              <small>+60 13-222 3344</small>
+              <a href="https://wa.me/60132223344" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+            <div class="contact-item">
+              <strong>Haziq</strong>
+              <small>Pengantin Lelaki</small>
+              <small>+60 11-111 2222</small>
+              <a href="https://wa.me/60111112222" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+            <div class="contact-item">
+              <strong>Aina</strong>
+              <small>Pengantin Perempuan</small>
+              <small>+60 17-777 8888</small>
+              <a href="https://wa.me/60177778888" target="_blank" rel="noopener">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Dengan penuh kasih, kami mendahului dengan jutaan terima kasih atas
+      kehadiran &amp; doa restu anda. 💙
     </div>
-  </section>
 
-  <!-- WISH -->
-  <section id="wish">
-    <div class="card">
-      <div class="section-title"><h2>Guest Book</h2></div>
-
-      <form id="wishForm">
-        <input type="text" id="wishName" placeholder="Nama" required>
-        <textarea id="wishMessage" placeholder="Ucapan" required></textarea>
-        <button type="submit">Hantar Ucapan</button>
-      </form>
-
-      <div id="wishesList" class="wishes-list"></div>
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <button data-target="#home" class="active">Home</button>
+      <button data-target="#details">Details</button>
+      <button data-target="#wish">Wish</button>
+      <button data-target="#rsvp">RSVP</button>
+      <button data-target="#contact">Contact</button>
     </div>
-  </section>
-
-  <!-- RSVP -->
-  <section id="rsvp">
-    <div class="card">
-      <div class="section-title"><h2>RSVP Kehadiran</h2></div>
-
-      <form id="rsvpForm">
-        <input type="text" id="rsvpName" placeholder="Nama" required>
-        <input type="number" id="rsvpPax" value="1" min="1">
-        <select id="rsvpStatus" required>
-          <option value="">Pilih</option>
-          <option value="Hadir">Hadir</option>
-          <option value="Tidak Hadir">Tidak Hadir</option>
-        </select>
-        <input type="text" id="rsvpRemark" placeholder="Catatan">
-        <button type="submit">Hantar RSVP</button>
-      </form>
-    </div>
-  </section>
+  </div>
 
   <script>
-    // GOOGLE SCRIPT URL  
+    // ===== CONFIG: Apps Script URL =====
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwRep80DpJmbi2jmwyu1RgEeenR2B-6mReb5tgPn36wRh5r2bo-1XDQrF4Jf3saUgTOLA/exec";
 
-    // MUSIC
+    // ===== INTRO + MUSIC (M1) =====
+    const introOverlay = document.getElementById("introOverlay");
+    const openInvitationBtn = document.getElementById("openInvitationBtn");
+    const pageContent = document.getElementById("pageContent");
     const bgMusic = document.getElementById("bgMusic");
     const musicBtn = document.getElementById("musicBtn");
-    bgMusic.volume = 0.7; bgMusic.muted = true;
-    bgMusic.play().catch(()=>{});
 
-    musicBtn.onclick = () => {
-      bgMusic.muted = !bgMusic.muted;
-      musicBtn.textContent = bgMusic.muted ? "🔇 Music Off" : "🔊 Music On";
-    };
+    bgMusic.muted = true;
 
-    // TOAST
-    function showToast(msg){
-      const t=document.getElementById("toast");
-      t.textContent=msg;
-      t.classList.add("show");
-      setTimeout(()=>t.classList.remove("show"),2000);
+    openInvitationBtn.addEventListener("click", async () => {
+      introOverlay.style.opacity = "0";
+      setTimeout(() => { introOverlay.style.display = "none"; }, 400);
+      pageContent.classList.remove("hidden");
+
+      musicBtn.classList.remove("hidden");
+      try {
+        bgMusic.muted = false;
+        await bgMusic.play();
+        musicBtn.classList.add("active");
+        musicBtn.textContent = "🔊 Music On";
+      } catch (e) {
+        // user must tap again if autoplay blocked
+        showToast("Tekan butang Music untuk mainkan lagu 💙");
+      }
+    });
+
+    musicBtn.addEventListener("click", async () => {
+      if (bgMusic.paused || bgMusic.muted) {
+        bgMusic.muted = false;
+        await bgMusic.play().catch(()=>{});
+        musicBtn.classList.add("active");
+        musicBtn.textContent = "🔊 Music On";
+      } else {
+        bgMusic.pause();
+        musicBtn.classList.remove("active");
+        musicBtn.textContent = "🔇 Music Off";
+      }
+    });
+
+    // ===== COUNTDOWN =====
+    const targetDate = new Date(2025, 10, 29, 11, 0, 0); // 29 Nov 2025, 11:00
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      const cdDays = document.getElementById("cd-days");
+      const cdHours = document.getElementById("cd-hours");
+      const cdMins = document.getElementById("cd-mins");
+      const cdSecs = document.getElementById("cd-secs");
+
+      if (diff <= 0) {
+        cdDays.textContent = "0";
+        cdHours.textContent = "0";
+        cdMins.textContent = "0";
+        cdSecs.textContent = "0";
+        return;
+      }
+
+      const seconds = Math.floor(diff / 1000);
+      const days = Math.floor(seconds / (3600 * 24));
+      const hours = Math.floor((seconds % (3600 * 24)) / 3600);
+      const mins = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+
+      cdDays.textContent = days;
+      cdHours.textContent = hours;
+      cdMins.textContent = mins;
+      cdSecs.textContent = secs;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ===== BOTTOM NAV ACTIVE =====
+    const navButtons = document.querySelectorAll(".bottom-nav button");
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = document.querySelector(btn.dataset.target);
+        if (target) target.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      const sections = ["#home", "#details", "#wish", "#rsvp", "#contact"].map(
+        (id) => document.querySelector(id)
+      );
+      let currentId = "#home";
+      const scrollY = window.scrollY + 120;
+
+      sections.forEach((sec) => {
+        if (sec && sec.offsetTop <= scrollY) {
+          currentId = "#" + sec.id;
+        }
+      });
+
+      navButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.target === currentId);
+      });
+    });
+
+    // ===== TOAST =====
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2600);
     }
 
-async function loadWishes() {
-  try {
-    const res = await fetch(SCRIPT_URL);
-    const data = await res.json();
+    // ===== WISHES: LOAD FROM SHEET (GET) =====
+    const wishesList = document.getElementById("wishesList");
 
-    // Clear list
-    wishesList.innerHTML = "";
+    async function loadWishes() {
+      try {
+        const res = await fetch(SCRIPT_URL); // doGet
+        const data = await res.json();
+        const wishes = (data && data.wishes) ? data.wishes : [];
 
-    data.wishes.reverse().forEach(w => {
-      const div = document.createElement("div");
-      div.className = "wish-item";
+        wishesList.innerHTML = "";
+        // newest last row, so reverse for newest on top
+        wishes.slice().reverse().forEach(w => {
+          if (!w.name && !w.message) return;
+          const item = document.createElement("div");
+          item.className = "wish-item";
+          const timeText = w.timestamp ? new Date(w.timestamp).toLocaleString("ms-MY") : "";
+          item.innerHTML = `
+            <strong>${w.name || "Tetamu"}</strong>
+            <span class="wish-msg">${w.message || ""}</span>
+            <span class="wish-time">${timeText}</span>
+          `;
+          wishesList.appendChild(item);
+        });
+      } catch (err) {
+        console.error("Load wishes error", err);
+      }
+    }
 
-      div.innerHTML = `
-        <strong>${w.name}</strong>
-        <span class="wish-msg">${w.message}</span>
-        <span class="wish-time">${new Date(w.timestamp).toLocaleString("ms-MY")}</span>
-      `;
+    document.addEventListener("DOMContentLoaded", loadWishes);
 
-      wishesList.appendChild(div);
-    });
+    // ===== SUBMIT WISH =====
+    const wishForm = document.getElementById("wishForm");
 
-  } catch (err) {
-    console.error("Load error:", err);
-  }
-}
-
-// Load wishes automatically when page opens
-loadWishes();
-
-
-    // SUBMIT WISH
-    document.getElementById("wishForm").addEventListener("submit", async(e)=>{
+    wishForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const name = wishName.value.trim();
-      const message = wishMessage.value.trim();
+      const name = document.getElementById("wishName").value.trim();
+      const message = document.getElementById("wishMessage").value.trim();
+      if (!name || !message) return;
 
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify({mode:"wish", name, message})
-      });
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify({
+            mode: "wish",
+            name,
+            message,
+          }),
+        });
 
-      showToast("Ucapan dihantar 💙");
-      wishForm.reset();
-      loadWishes();
+        showToast("Terima kasih atas ucapan anda! 💙");
+        wishForm.reset();
+        // refresh from sheet so it stays in sync
+        setTimeout(loadWishes, 800);
+      } catch (err) {
+        console.error(err);
+        showToast("Maaf, penghantaran gagal. Cuba lagi sebentar lagi.");
+      }
     });
 
-    // SUBMIT RSVP
-    document.getElementById("rsvpForm").addEventListener("submit", async(e)=>{
+    // ===== SUBMIT RSVP =====
+    const rsvpForm = document.getElementById("rsvpForm");
+
+    rsvpForm.addEventListener("submit", async (e) => {
       e.preventDefault();
+      const name = document.getElementById("rsvpName").value.trim();
+      const pax = document.getElementById("rsvpPax").value || "1";
+      const status = document.getElementById("rsvpStatus").value;
+      const remark = document.getElementById("rsvpRemark").value.trim();
 
-      await fetch(SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify({
-          mode:"rsvp",
-          name:rsvpName.value,
-          pax:rsvpPax.value,
-          status:rsvpStatus.value,
-          remark:rsvpRemark.value
-        })
-      });
+      if (!name || !status) return;
 
-      showToast("RSVP dihantar 💙");
-      rsvpForm.reset();
+      try {
+        await fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify({
+            mode: "rsvp",
+            name,
+            pax,
+            status,
+            remark,
+          }),
+        });
+
+        showToast("Terima kasih, RSVP anda telah diterima 💙");
+        rsvpForm.reset();
+      } catch (err) {
+        console.error(err);
+        showToast("Maaf, penghantaran gagal. Cuba lagi sebentar lagi.");
+      }
     });
-
-    
   </script>
 </body>
 </html>
