@@ -35,10 +35,6 @@
       overflow-x: hidden;
     }
 
-    body.envelope-open {
-      overflow: hidden;
-    }
-
     a {
       color: inherit;
       text-decoration: none;
@@ -60,224 +56,6 @@
     .glass {
       background: rgba(255,255,255,0.9);
       backdrop-filter: blur(10px);
-    }
-
-    /* ==== ENVELOPE ANIMATION ==== */
-    .envelope-wrapper {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 0.5s ease;
-    }
-
-    .envelope-wrapper.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .envelope-container {
-      position: relative;
-      width: 320px;
-      height: 200px;
-      cursor: pointer;
-    }
-
-    .envelope {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-
-    .envelope-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #e8d4b8 0%, #d6bfa3 100%);
-      border-radius: 8px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .envelope-flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      transform-origin: top center;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 3;
-    }
-
-    .envelope-flap::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 160px solid transparent;
-      border-right: 160px solid transparent;
-      border-top: 100px solid #d6bfa3;
-    }
-
-    .envelope-flap::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 160px solid transparent;
-      border-right: 160px solid transparent;
-      border-top: 100px solid #c4ad91;
-      opacity: 0.6;
-    }
-
-    .envelope.open .envelope-flap {
-      transform: rotateX(180deg);
-    }
-
-    .envelope-letter {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(0);
-      width: 280px;
-      height: 350px;
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 30px 25px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 1;
-    }
-
-    .envelope.open .envelope-letter {
-      transform: translateX(-50%) translateY(-100px);
-    }
-
-    .envelope-letter h3 {
-      font-size: 1.1rem;
-      color: #7b8292;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-      font-family: system-ui, sans-serif;
-    }
-
-    .envelope-letter h2 {
-      font-size: 2.2rem;
-      color: #37415b;
-      margin-bottom: 10px;
-      letter-spacing: 0.05em;
-    }
-
-    .envelope-letter .letter-amp {
-      font-size: 1rem;
-      color: var(--accent);
-      padding: 0 8px;
-    }
-
-    .envelope-letter p {
-      font-size: 0.9rem;
-      color: #646a7a;
-      line-height: 1.6;
-      margin-top: 15px;
-    }
-
-    .envelope-letter .open-btn {
-      margin-top: 20px;
-      padding: 12px 30px;
-      background: linear-gradient(135deg, var(--blue-deep), #6d7ea0);
-      color: white;
-      border: none;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(83, 97, 127, 0.4);
-      font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .envelope-letter .open-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 25px rgba(83, 97, 127, 0.5);
-    }
-
-    .envelope-seal {
-      position: absolute;
-      bottom: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 50px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      box-shadow: 0 4px 15px rgba(214, 191, 163, 0.5);
-      z-index: 2;
-      transition: opacity 0.3s ease;
-    }
-
-    .envelope.open .envelope-seal {
-      opacity: 0;
-    }
-
-    .envelope-hint {
-      position: absolute;
-      bottom: -50px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      text-align: center;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-
-    @media (max-width: 400px) {
-      .envelope-container {
-        width: 280px;
-        height: 175px;
-      }
-
-      .envelope-flap::before,
-      .envelope-flap::after {
-        border-left-width: 140px;
-        border-right-width: 140px;
-        border-top-width: 87px;
-      }
-
-      .envelope-letter {
-        width: 250px;
-        height: 320px;
-        padding: 25px 20px;
-      }
-
-      .envelope-letter h2 {
-        font-size: 1.8rem;
-      }
     }
 
     /* ==== FLOATING FLOWERS ==== */
@@ -795,24 +573,118 @@
     }
   </style>
 </head>
-<body class="envelope-open">
-  <!-- ENVELOPE ANIMATION -->
-  <div class="envelope-wrapper" id="envelopeWrapper">
-    <div class="envelope-container" id="envelopeContainer">
-      <div class="envelope" id="envelope">
-        <div class="envelope-back"></div>
-        <div class="envelope-letter">
-          <h3>Jemputan Majlis</h3>
-          <h2>Haziq <span class="letter-amp">&amp;</span> Aina</h2>
-          <p>29 November 2025</p>
-          <button class="open-btn" id="openEnvelope">Buka Jemputan</button>
-        </div>
-        <div class="envelope-flap"></div>
-        <div class="envelope-seal">💌</div>
-      </div>
-      <div class="envelope-hint">Klik untuk membuka</div>
+<body style="overflow:hidden;">
+    <!-- INTRO OVERLAY -->
+  <div id="introOverlay" style="
+    position:fixed; inset:0; background:rgba(255,255,255,0.92);
+    backdrop-filter:blur(6px);
+    z-index:9999; display:flex; align-items:center; justify-content:center;
+    flex-direction:column; text-align:center; padding:20px;
+    animation:fadeIn 1.2s ease;
+  ">
+
+    <style>
+      @keyframes fadeOut { from {opacity:1;} to {opacity:0;} }
+      @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    </style>
+
+    <!-- Floating flowers on intro -->
+    <div id="introFlowers"></div>
+
+    <h2 style="
+      font-family: 'Playfair Display', serif;
+      font-size:2.4rem; color:#3b465f; margin-bottom:8px;">
+      Undangan Majlis
+    </h2>
+
+    <h1 style="
+      font-family:'Playfair Display', serif;
+      font-size:3rem; color:#2f3650;">
+      Haziq <span style="color:#7f8fb8;">&</span> Aina
+    </h1>
+
+    <div style="
+      font-size:1rem; letter-spacing:0.22em;
+      text-transform:uppercase; margin-top:10px; color:#6e7590;">
+      29 November 2025
     </div>
+
+    <div style="
+      margin-top:18px; font-size:1.4rem;
+      color:#3b4360;">
+      بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+    </div>
+
+    <button id="openInvitationBtn" style="
+      margin-top:28px; padding:12px 34px;
+      border-radius:999px; border:none;
+      background:#556286; color:white;
+      letter-spacing:0.18em; text-transform:uppercase;
+      cursor:pointer; font-weight:600;
+      box-shadow:0 12px 24px rgba(86,98,134,0.35);
+      transition:0.2s;
+    ">
+      Buka Jemputan
+    </button>
+
   </div>
+
+  <script>
+    // Floating flowers in intro
+    function introFlowersStart() {
+      const container = document.getElementById("introFlowers");
+      const flowers = ["🌸","🌺","🌼","🌷"];
+
+      setInterval(() => {
+        const f = document.createElement("div");
+        f.textContent = flowers[Math.floor(Math.random()*flowers.length)];
+        f.style.position = "fixed";
+        f.style.top = "-10vh";
+        f.style.left = Math.random()*100 + "vw";
+        f.style.fontSize = "2.2rem";
+        f.style.opacity = "0.8";
+        f.style.animation = "fallIntro linear infinite";
+        f.style.animationDuration = 6 + Math.random()*6 + "s";
+        document.body.appendChild(f);
+        setTimeout(()=>f.remove(),12000);
+      }, 700);
+    }
+
+    introFlowersStart();
+
+    // Intro flower animation
+    const style = document.createElement("style");
+    style.innerHTML = `
+      @keyframes fallIntro {
+        0% { transform: translateY(-10vh) rotate(0deg); }
+        100% { transform: translateY(110vh) rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Open button
+    document.getElementById("openInvitationBtn").onclick = function() {
+      const intro = document.getElementById("introOverlay");
+
+      intro.style.animation = "fadeOut 1s ease forwards";
+
+      setTimeout(()=>{
+        intro.style.display = "none";
+        document.body.style.overflow = "auto";
+        
+        // PLAY MUSIC
+        const music = document.getElementById("bgMusic");
+        music.muted = false;
+        music.play().catch(()=>{});
+        
+        // Change button state
+        const musicBtn = document.getElementById("musicBtn");
+        musicBtn.textContent = "🔊 Music On";
+        musicBtn.classList.add("active");
+
+      },900);
+    };
+  </script>
 
   <!-- FLOATING FLOWERS -->
   <div id="flower-container"></div>
@@ -835,7 +707,7 @@
 
       <p>
         Assalamualaikum w.b.t &amp; salam sejahtera. Dengan penuh rasa syukur
-        ke hadrat Ilahi, kami menjemput Dato'/Datin/Tuan/Puan/Encik/Cik untuk
+        ke hadrat Ilahi, kami menjemput Dato’/Datin/Tuan/Puan/Encik/Cik untuk
         hadir memeriahkan majlis walimatul urus putera &amp; puteri kami.
       </p>
 
@@ -889,7 +761,7 @@
       <p class="dua">
         Ya Allah, satukanlah hati kedua mempelai ini dalam ketaatan kepada-Mu.
         Kurniakanlah mereka ketenangan, kasih sayang dan rahmat dalam
-        rumahtangga yang dibina hingga ke syurga-Mu. آمِين يا رَبَّ العَالَمِين.
+        rumahtangga yang dibina hingga ke syurga-Mu. آمِين يا رَبَّ العَالَمِين.
       </p>
 
       <div class="countdown-wrapper">
@@ -925,6 +797,7 @@
         Sila gunakan aplikasi peta pilihan anda untuk ke lokasi majlis.
       </p>
       <div style="text-align: center;">
+        <!-- GANTI # DENGAN LINK GOOGLE MAPS ANDA NANTI -->
         <a href="#"
           onclick="showToast('Sila kemaskini pautan Google Maps dalam kod HTML.'); return false;"
           style="
@@ -1077,36 +950,6 @@
     const SCRIPT_URL =
       "https://script.google.com/macros/s/AKfycbwRep80DpJmbi2jmwyu1RgEeenR2B-6mReb5tgPn36wRh5r2bo-1XDQrF4Jf3saUgTOLA/exec";
 
-    // ====== ENVELOPE ANIMATION ======
-    const envelopeWrapper = document.getElementById("envelopeWrapper");
-    const envelope = document.getElementById("envelope");
-    const openEnvelopeBtn = document.getElementById("openEnvelope");
-    const envelopeContainer = document.getElementById("envelopeContainer");
-    const bgMusic = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
-
-    // Open envelope on button click
-    openEnvelopeBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      envelope.classList.add("open");
-      setTimeout(() => {
-        envelopeWrapper.classList.add("hide");
-        document.body.classList.remove("envelope-open");
-        // Start music when envelope is opened
-        bgMusic.muted = false;
-        bgMusic.play().catch(() => {});
-        musicBtn.classList.add("active");
-        musicBtn.textContent = "🔊 Music On";
-      }, 1500);
-    });
-
-    // Also allow clicking anywhere on envelope to open
-    envelopeContainer.addEventListener("click", () => {
-      if (!envelope.classList.contains("open")) {
-        openEnvelopeBtn.click();
-      }
-    });
-
     // ====== COUNTDOWN ======
     const targetDate = new Date(2025, 10, 29, 11, 0, 0); // 29 Nov 2025, 11:00
 
@@ -1178,6 +1021,8 @@
     }
 
     // ====== MUSIC ======
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
     bgMusic.volume = 0.7;
     bgMusic.muted = true;
     bgMusic.play().catch(() => { /* ignore autoplay block */ });
@@ -1284,7 +1129,7 @@
       try {
         await fetch(SCRIPT_URL, {
           method: "POST",
-          mode: "no-cors",
+          mode: "no-cors", // biar tak block CORS
           body: JSON.stringify({
             mode: "wish",
             name,
@@ -1294,7 +1139,7 @@
 
         showToast("Terima kasih atas ucapan anda! 💙");
         wishForm.reset();
-        setTimeout(loadWishes, 1000);
+        setTimeout(loadWishes, 1000); // refresh slideshow lepas submit
       } catch (err) {
         console.error(err);
         showToast("Maaf, penghantaran gagal. Cuba lagi sebentar lagi.");
