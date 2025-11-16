@@ -61,6 +61,7 @@ body {
 }
 
 /* ========= GALLERY SLIDESHOW ========= */
+/* ===== WISHES SLIDESHOW (NON-FLIP, SMOOTH SLIDE) ===== */
 .wish-gallery {
   width: 100%;
   overflow: hidden;
@@ -71,22 +72,29 @@ body {
   margin-top: 20px;
 }
 
+/* Track (the moving row of slides) */
 .gallery-track {
   display: flex;
-  transition: transform 0.6s ease;
+  transition: transform 0.6s ease-in-out !important;
+  will-change: transform;
 }
 
+/* Each slide */
 .gallery-item {
-  min-width: 100%;
+  min-width: 100% !important;
   padding: 20px;
+  transform: none !important; /* NO flip */
 }
 
+/* The card inside each slide */
 .gallery-card {
   background: rgba(255,255,255,0.9);
   border-radius: 16px;
   padding: 18px;
   text-align: left;
   border-left: 5px solid #7f8fb8;
+  transform: none !important; /* NO flip */
+  animation: none !important; /* NO flip */
 }
 
 .gallery-card strong {
@@ -105,6 +113,23 @@ body {
   margin-top: 5px;
   font-size: 0.8rem;
   color: #7a8299;
+}
+
+/* ===== FORCE REMOVE ALL OLD FLIP ANIMATION ===== */
+
+.flip-card,
+.flip-card-inner,
+.flip-card-front,
+.flip-card-back {
+  transform: none !important;
+  animation: none !important;
+  backface-visibility: visible !important;
+  perspective: none !important;
+}
+
+@keyframes flip {
+  0% { transform: none; }
+  100% { transform: none; }
 }
 
 /* ========= FORM ========= */
